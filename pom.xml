@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nohup.maven.plugins</groupId>
+    <artifactId>jsp2jspx-maven-plugin</artifactId>
+    <version>1.0.5-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
+
+    <description>
+        <![CDATA[
+        Jsp2Jspx Maven plugin handles the conversion of JSP pages to JSP documents, i.e. JSPs in well-formed XML syntax.
+        The plugin implementation is based on the sources of Jsp2X utility (http://code.google.com/p/jsp2x).
+        ]]>
+    </description>
+    <inceptionYear>2010</inceptionYear>
+
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
+    <scm>
+        <connection>scm:git:http://github.com/dkoval/jsp2jspx-maven-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/dkoval/jsp2jspx-maven-plugin.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <jdk.version>1.5</jdk.version>
+        <maven.compiler.source>${jdk.version}</maven.compiler.source>
+        <maven.compiler.target>${jdk.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.version>2.0.9</maven.version>
+        <antlr.version>3.0.1</antlr.version>
+        <antlr.outputDirectory>${project.build.directory}/generated-sources/antlr</antlr.outputDirectory>
+    </properties>
+
+    <dependencies>
+        <!-- Maven Plugin API -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>${maven.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Project specific -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <version>${antlr.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>process-antlr-grammars</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${antlr.outputDirectory}"/>
+                                <java fork="true" classname="org.antlr.Tool" failonerror="true"
+                                      classpathref="maven.plugin.classpath" outputproperty="antlrOutput"
+                                      dir="src/main/antlr">
+                                    <arg line="-o ${antlr.outputDirectory}"/>
+                                    <arg line="-lib ${antlr.outputDirectory}"/>
+                                    <arg value="Jsp.g"/>
+                                    <arg value="JspSyntaxTreeSerializer.g"/>
+                                </java>
+                                <fail message="${antlrOutput}">
+                                    <condition>
+                                        <or>
+                                            <contains string="${antlrOutput}" substring="error"/>
+                                            <contains string="${antlrOutput}" substring="warn"/>
+                                        </or>
+                                    </condition>
+                                </fail>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.antlr</groupId>
+                        <artifactId>antlr</artifactId>
+                        <version>${antlr.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <distributionManagement>
+                <repository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging/repo</url>
+                </repository>
+                <snapshotRepository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging/repo</url>
+                </snapshotRepository>
+                <site>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging/site</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+</project>
