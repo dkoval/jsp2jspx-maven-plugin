@@ -95,7 +95,7 @@ The plugin logically consists of 4 main parts:
 tree walker that can change, delete or add nodes during a walk.
 - **JSP Syntax Tree Serializer** is responsible for storing (serializing) transformed JSP Syntax Tree to an output file.
 
-The main class that glues all this stuff is called [Jsp2JspxTool](../blob/master/src/main/java/com/nohup/tool/jsp2jspx/transformation/Jsp2JspxTool.java).
+The main class that glues all this stuff is called [Jsp2JspxTool](../master/src/main/java/com/nohup/tool/jsp2jspx/transformation/Jsp2JspxTool.java).
 This class encapsulates all the logic as it is described in [JSP to JSPX Transformation Flow](#jsp-to-jspx-transformation-flow) section.
 A client code (e.g. Maven’s Mojo) generally needs to instantiate `Jsp2JspxTool` object and call its `convert()` method
 in order to convert a single JSP file to a JSPX document.
@@ -104,7 +104,7 @@ The following diagram illustrates how the high-level sub-components collaborate 
 
 ![image](https://raw.githubusercontent.com/dkoval/jsp2jspx-maven-plugin/master/images/jsp-transformation-flow.png)
 
-The below diagram shows how [AbstractSyntaxTreeTransformation](../blob/master/src/main/java/com/nohup/tool/jsp2jspx/transformation/AbstractJspSyntaxTreeTransformation.java) is organized the flow:
+The below diagram shows how [AbstractSyntaxTreeTransformation](../master/src/main/java/com/nohup/tool/jsp2jspx/transformation/AbstractJspSyntaxTreeTransformation.java) is organized the flow:
 
 ![image](https://raw.githubusercontent.com/dkoval/jsp2jspx-maven-plugin/master/images/jsp-syntax-tree-transformation.png)
 
@@ -113,9 +113,9 @@ The below diagram shows how [AbstractSyntaxTreeTransformation](../blob/master/sr
 The plugin uses [ANTLR](http://www.antlr.org/) parser generator to generate Java code for **Jsp Parser** and **Jsp Syntax Tree Serializer**
 sub-components (see [Implementation Details](#implementation-details) section).
 
-The ANTLR grammar files from which Jsp Parser and Jsp Syntax Tree Serializer will be generated are located under [src/main/antlr](../blob/master/src/main/antlr) folder.
+The ANTLR grammar files from which Jsp Parser and Jsp Syntax Tree Serializer will be generated are located under [src/main/antlr](../master/src/main/antlr) folder.
 
-If you make changes in ANTLR grammar files (either [Jsp.g](../blob/master/src/main/antlr/Jsp.g) or [JspSyntaxTreeSerializer.g](../blob/master/src/main/antlr/JspSyntaxTreeSerializer.g)),
+If you make changes in ANTLR grammar files (either [Jsp.g](../master/src/main/antlr/Jsp.g) or [JspSyntaxTreeSerializer.g](../master/src/main/antlr/JspSyntaxTreeSerializer.g)),
 you need to regenerate Java code for the parsers. To do so, call the following goal from the project root:
 
 ```
