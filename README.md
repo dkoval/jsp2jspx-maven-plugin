@@ -3,7 +3,7 @@
 Jsp2Jspx Maven plugin handles the conversion of JSP pages to JSP documents, i.e. JSPs in well-formed XML syntax.
 Making JSP files XML-compliant opens plenty of possibilities for further processing. For instance, if you don’t like some XML document,
 you can change it with the help of XSL transformations. Indeed, one of the practical applications of this plugin is
-the automatic conversion of plain JSP pages to Facelets/JSF format, which can be relatively easy achieved in 2 steps:
+the automatic conversion of plain JSP pages to Facelets/JSF format, which is yet to be defined, can be relatively easy achieved in 2 steps:
 
 - let the jsp2jspx plugin handle JSP to JSPX conversion;
 - apply extra XSL transformation to get the desired structure of your Facelets/JSF pages.
