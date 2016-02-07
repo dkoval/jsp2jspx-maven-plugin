@@ -96,7 +96,7 @@ tree walker that can change, delete or add nodes during a walk.
 - **JSP Syntax Tree Serializer** is responsible for storing (serializing) transformed JSP Syntax Tree to an output file.
 
 The main class that glues all this stuff is called [Jsp2JspxTool](../master/src/main/java/com/nohup/tool/jsp2jspx/transformation/Jsp2JspxTool.java).
-This class encapsulates all the logic as it is described in [JSP to JSPX Transformation Flow](#jsp-to-jspx-transformation-flow) section.
+This class encapsulates all the logic as it is described in [JSP to JSPX Transformation Flow][] section.
 A client code (e.g. Maven’s Mojo) generally needs to instantiate `Jsp2JspxTool` object and call its `convert()` method
 in order to convert a single JSP file to a JSPX document.
 
@@ -111,7 +111,7 @@ The below diagram shows how [AbstractSyntaxTreeTransformation](../master/src/mai
 ### Generating JSP parser and JSP syntax tree serializer with ANTLR
 
 The plugin uses [ANTLR](http://www.antlr.org/) parser generator to generate Java code for **Jsp Parser** and **Jsp Syntax Tree Serializer**
-sub-components (see [Implementation Details](#implementation-details) section).
+sub-components (see [Implementation Details][] section).
 
 The ANTLR grammar files from which Jsp Parser and Jsp Syntax Tree Serializer will be generated are located under [src/main/antlr](../master/src/main/antlr) folder.
 
