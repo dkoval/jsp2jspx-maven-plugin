@@ -104,7 +104,7 @@ The following diagram illustrates how the high-level sub-components collaborate 
 
 ![image](https://raw.githubusercontent.com/dkoval/jsp2jspx-maven-plugin/master/images/jsp-transformation-flow.png)
 
-The below diagram shows how [AbstractSyntaxTreeTransformation](../master/src/main/java/com/nohup/tool/jsp2jspx/transformation/AbstractJspSyntaxTreeTransformation.java) is organized the flow:
+The below diagram shows how [AbstractSyntaxTreeTransformation](../master/src/main/java/com/nohup/tool/jsp2jspx/transformation/AbstractJspSyntaxTreeTransformation.java) is organized in the flow:
 
 ![image](https://raw.githubusercontent.com/dkoval/jsp2jspx-maven-plugin/master/images/jsp-syntax-tree-transformation.png)
 
