@@ -115,7 +115,7 @@ sub-components (see [Implementation Details](#implementation-details) section).
 
 The ANTLR grammar files from which Jsp Parser and Jsp Syntax Tree Serializer will be generated are located under [src/main/antlr](../master/src/main/antlr) folder.
 
-If you make changes in ANTLR grammar files (either [Jsp.g](../master/src/main/antlr/Jsp.g) or [JspSyntaxTreeSerializer.g](../master/src/main/antlr/JspSyntaxTreeSerializer.g)),
+If you make changes in ANTLR grammar files (either [Jsp.g](../master/src/main/antlr/com/nohup/tool/jsp2jspx/parser/Jsp.g) or [JspSyntaxTreeSerializer.g](../master/src/main/antlr/com/nohup/tool/jsp2jspx/parser/JspSyntaxTreeSerializer.g)),
 you need to regenerate Java code for the parsers. To do so, call the following goal from the project root:
 
 ```
@@ -123,5 +123,3 @@ mvn generate-sources
 ```
 
 This will generate a series of files under `target/generated-sources/antlr` folder.
-Then copy `JspLexer.java`, `JspParser.java` and `JspSyntaxTreeSerializer.java` files to `src/main/java/com/nohup/tool/jsp2jspx/parser` directory
-to replace the old ones.

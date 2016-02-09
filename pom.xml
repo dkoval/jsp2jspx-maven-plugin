@@ -33,7 +33,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>2.0.9</maven.version>
         <antlr.version>3.0.1</antlr.version>
-        <antlr.outputDirectory>${project.build.directory}/generated-sources/antlr</antlr.outputDirectory>
+        <antlr.base.directory>com/nohup/tool/jsp2jspx/parser</antlr.base.directory>
+        <antlr.codegen.directory>${project.build.directory}/generated-sources/antlr</antlr.codegen.directory>
+        <antlr.input.directory>src/main/antlr/${antlr.base.directory}</antlr.input.directory>
+        <antlr.output.directory>${antlr.codegen.directory}/${antlr.base.directory}</antlr.output.directory>
     </properties>
 
     <dependencies>
@@ -79,12 +82,12 @@
                         </goals>
                         <configuration>
                             <target>
-                                <mkdir dir="${antlr.outputDirectory}"/>
+                                <mkdir dir="${antlr.output.directory}"/>
                                 <java fork="true" classname="org.antlr.Tool" failonerror="true"
                                       classpathref="maven.plugin.classpath" outputproperty="antlrOutput"
-                                      dir="src/main/antlr">
-                                    <arg line="-o ${antlr.outputDirectory}"/>
-                                    <arg line="-lib ${antlr.outputDirectory}"/>
+                                      dir="${antlr.input.directory}">
+                                    <arg line="-o ${antlr.output.directory}"/>
+                                    <arg line="-lib ${antlr.output.directory}"/>
                                     <arg value="Jsp.g"/>
                                     <arg value="JspSyntaxTreeSerializer.g"/>
                                 </java>
@@ -107,6 +110,26 @@
                         <version>${antlr.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${antlr.codegen.directory}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
